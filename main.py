@@ -24,16 +24,49 @@ def handle_uploaded_image(uploaded_file):
     image = Image.open(uploaded_file)
     calculate_ndvi(image)
 
+def about_page():
+    st.title("About This App")
+    st.write("""
+    Welcome to the Plant Health Checker App!
 
-def main():
-    st.title("How Healthy are your Plants?")
+    This app allows you to assess the health of your plants using an image. 
+    By analyzing the pixels in the image, the app provides a quick and simple assessment of plant health.
+    
+    For more details contact info@raiseagri.com
+
+    **How it works:**
+    - Upload or capture an image of your plant.
+    - The app analyzes the amount of green in the image and calculates a percentage that represents plant health.
+
+    The NDVI (Normalized Difference Vegetation Index) technique is used to assess plant health based on green intensity 
+    in the image.
+    """)
+    st.error("**Disclaimer:** This tool is a basic approximation and is not a replacement for expert advice. "
+             "This is a demo app to show case the capabilities of our tool. For the full version please contact info@raiseagri.com. "
+             "If you're concerned about your plants,it's always best to consult with a horticultural expert or contact us. ")
+
+
+def main_page():
+    st.title("How Healthy Are Your Plants?")
+
+    # Upload image
     uploaded_file = st.file_uploader("Upload a JPG or PNG image", type=["jpg", "png"])
     if uploaded_file is not None:
         handle_uploaded_image(uploaded_file)
+
+    # Capture image from camera
     camera_image = st.camera_input("Capture an image")
     if camera_image is not None:
         img = Image.open(camera_image)
         calculate_ndvi(img)
+def main():
+    st.sidebar.title("Navigation")
+    page = st.sidebar.selectbox("Go to", ["Plant Health Checker", "About"])
+
+    if page == "Plant Health Checker":
+        main_page()
+    elif page == "About":
+        about_page()
 
 
 if __name__ == "__main__":
