@@ -17,15 +17,9 @@ def handle_uploaded_image(uploaded_file):
 
 def main():
     st.title("RAISE: Demo NDVI Calculator")
-    open_camera = st.button("Open Camera")
     uploaded_file = st.file_uploader("Upload a JPG or PNG image", type=["jpg", "png"])
-
     if uploaded_file is not None:
         handle_uploaded_image(uploaded_file)
-
-    if open_camera:
-        st.session_state['camera_opened'] = True
-
     camera_image = st.camera_input("Capture an image")
     if camera_image is not None:
         img = Image.open(camera_image)
