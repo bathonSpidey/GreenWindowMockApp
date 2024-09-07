@@ -25,29 +25,32 @@ def handle_uploaded_image(uploaded_file):
     calculate_ndvi(image)
 
 def about_page():
-    st.title("About This App")
+    st.title("Info")
     st.write("""
-    Welcome to the Plant Health Checker App!
+    Willkommen bei der App Plant Health Checker!
 
-    This app allows you to assess the health of your plants using an image. 
-    By analyzing the pixels in the image, the app provides a quick and simple assessment of plant health.
+    Mit dieser App können Sie die Gesundheit Ihrer Pflanzen anhand eines Bildes beurteilen. 
+    Durch die Analyse der Pixel im Bild ermöglicht die App eine schnelle und einfache Bewertung der Pflanzengesundheit.
     
-    For more details contact info@raiseagri.com
+    Für weitere Informationen wenden Sie sich an info@raiseagri.com
 
-    **How it works:**
-    - Upload or capture an image of your plant.
-    - The app analyzes the amount of green in the image and calculates a percentage that represents plant health.
+    **Wie es funktioniert:**
+    - Laden Sie ein Bild Ihrer Pflanze hoch oder nehmen Sie es auf.
+    - Die App analysiert die Menge an Grün im Bild und berechnet einen Prozentsatz, der die Pflanzengesundheit darstellt.
 
-    The NDVI (Normalized Difference Vegetation Index) technique is used to assess plant health based on green intensity 
-    in the image.
+    Die NDVI-Technik (Normalized Difference Vegetation Index) wird verwendet, um die Pflanzengesundheit anhand der Grünintensität 
+    im Bild.
     """)
-    st.error("**Disclaimer:** This tool is a basic approximation and is not a replacement for expert advice. "
-             "This is a demo app to show case the capabilities of our tool. For the full version please contact info@raiseagri.com. "
-             "If you're concerned about your plants,it's always best to consult with a horticultural expert or contact us. ")
+    st.error("**Haftungsausschluss:** Dieses Tool ist eine grundlegende Annäherung und kein Ersatz für eine fachliche Beratung."
+             "Dies ist eine Demo-App, um die Möglichkeiten unseres Tools zu zeigen. "
+             "Für die Vollversion wenden Sie sich bitte an info@raiseagri.com."
+             " Wenn Sie sich Sorgen um Ihre Pflanzen machen, ist es immer am besten, einen Gartenbauexperten zu Rate zu ziehen oder uns zu kontaktieren."
+             )
 
 
 def main_page():
     st.title("How Healthy Are Your Plants?")
+    about_page()
 
     # Upload image
     uploaded_file = st.file_uploader("Upload a JPG or PNG image", type=["jpg", "png"])
@@ -59,14 +62,9 @@ def main_page():
     if camera_image is not None:
         img = Image.open(camera_image)
         calculate_ndvi(img)
-def main():
-    st.sidebar.title("Navigation")
-    page = st.sidebar.selectbox("Go to", ["Plant Health Checker", "About"])
 
-    if page == "Plant Health Checker":
-        main_page()
-    elif page == "About":
-        about_page()
+def main():
+    main_page()
 
 
 if __name__ == "__main__":
